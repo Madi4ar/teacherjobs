@@ -2,6 +2,8 @@ import Container from "@/shared/container/ui/Container";
 import { ArrowRight, SearchIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
+import aiSearch from "@/shared/images/landing-ai-search.svg";
 
 function HomePage() {
   interface Vacancies {
@@ -100,7 +102,7 @@ function HomePage() {
 
   return (
     <>
-      <div className="flex flex-col h-[calc(100vh-69px)] bg-[#F9FAFB]">
+      <div className="flex flex-col h-screen bg-[#F9FAFB]">
         <Container className="h-full">
           <div className="flex flex-col items-center justify-center py-[72px] h-full">
             <span className="text-[#185FA5] bg-[#E6F1FB] rounded-lg px-[12px] py-[5px] font-medium text-sm">
@@ -154,81 +156,154 @@ function HomePage() {
               </div>
             </div>
           </div>
-
-          <div className="py-[64px]">
-            <div className="flex items-center justify-between">
-              <p className="font-medium text-[20px]">Свежие вакансии</p>
-              <Link className="text-[#185FA5] flex items-center gap-2" href="#">
-                Все вакансии
-                <ArrowRight />
-              </Link>
-            </div>
-
-            <div className="mt-[24px] flex flex-col gap-4">
-              {vacancies.map((vacancy) => (
-                <div
-                  className="border border-gray-200 rounded-xl p-[21px] flex flex-col gap-3 hover:border-blue-500 transition-all duration-300 cursor-pointer"
-                  key={vacancy.salary}
-                >
-                  <div className="flex flex-col md:flex-row w-full md:items-center items-start justify-between flex flex-wrap gap-3">
-                    <p className="font-medium text-xl">
-                      Учитель {vacancy.subject}
-                    </p>
-                    <p className="font-semibold text-xl">{vacancy.salary} ₸</p>
-                  </div>
-
-                  <div className="flex w-full items-center justify-between">
-                    <p className="text-sm text-[#6B7280]">{vacancy.school}</p>
-                    <p className="text-sm text-[#6B7280]">
-                      {vacancy.published}
-                    </p>
-                  </div>
-
-                  <div className="flex w-full gap-2 items-center">
-                    <p className="text-[#3B6D11] bg-[#EAF3DE] rounded-lg px-2 py-1">
-                      Полная занятость
-                    </p>
-                    <p className="text-[#854F0B] bg-[#FAEEDA] rounded-lg px-2 py-1">
-                      Срочно
-                    </p>
-
-                    <p className="text-[#185FA5] bg-[#E6F1FB] rounded-lg px-2 py-1">
-                      Срочно
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="py-[64px]">
-            <div className="flex items-center justify-between">
-              <p className="font-medium text-[20px]">Свежие вакансии</p>
-              <Link className="text-[#185FA5] flex items-center gap-2" href="#">
-                Найти учителя
-                <ArrowRight />
-              </Link>
-            </div>
-
-            <div className="w-full grid grid-cols-3 gap-4">
-              {trainers.map((trainer) => (
-                <div className="border border-gray-200 rounded-xl flex flex-col items-center justify-center gap-4 py-8 px-2">
-                  <p className="font-semibold text-lg">{trainer.name}</p>
-                  <p className=" text-base">{trainer.subject}</p>
-                  <p className="text-lg">10/{trainer.rating}</p>
-                  <span
-                    className={`${getStatusColor(
-                      trainer.status,
-                    )} rounded-xl py-[4px] px-[9px]`}
-                  >
-                    {trainer.status}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
         </Container>
       </div>
+
+      <Container>
+        <div className="py-[64px]">
+          <div className="flex items-center justify-between">
+            <p className="font-medium text-[20px]">Свежие вакансии</p>
+            <Link className="text-[#185FA5] flex items-center gap-2" href="#">
+              Все вакансии
+              <ArrowRight />
+            </Link>
+          </div>
+
+          <div className="mt-[24px] flex flex-col gap-4">
+            {vacancies.map((vacancy) => (
+              <div
+                className="border border-gray-200 rounded-xl p-[21px] flex flex-col gap-3 hover:border-blue-500 transition-all duration-300 cursor-pointer"
+                key={vacancy.salary}
+              >
+                <div className="flex flex-col md:flex-row w-full md:items-center items-start justify-between flex flex-wrap gap-3">
+                  <p className="font-medium text-xl">
+                    Учитель {vacancy.subject}
+                  </p>
+                  <p className="font-semibold text-xl">{vacancy.salary} ₸</p>
+                </div>
+
+                <div className="flex w-full items-center justify-between">
+                  <p className="text-sm text-[#6B7280]">{vacancy.school}</p>
+                  <p className="text-sm text-[#6B7280]">{vacancy.published}</p>
+                </div>
+
+                <div className="flex w-full gap-2 items-center">
+                  <p className="text-[#3B6D11] bg-[#EAF3DE] rounded-lg px-2 py-1">
+                    Полная занятость
+                  </p>
+                  <p className="text-[#854F0B] bg-[#FAEEDA] rounded-lg px-2 py-1">
+                    Срочно
+                  </p>
+
+                  <p className="text-[#185FA5] bg-[#E6F1FB] rounded-lg px-2 py-1">
+                    Срочно
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="py-[64px]">
+          <div className="flex items-center justify-between">
+            <p className="font-medium text-[20px]">Свежие вакансии</p>
+            <Link className="text-[#185FA5] flex items-center gap-2" href="#">
+              Найти учителя
+              <ArrowRight />
+            </Link>
+          </div>
+
+          <div className="w-full grid md:grid-cols-3 gap-4 mt-8">
+            {trainers.map((trainer, index) => (
+              <div
+                className="border border-gray-200 rounded-xl flex flex-col items-center justify-center gap-4 py-8 px-2"
+                key={index}
+              >
+                <p className="font-semibold text-lg">{trainer.name}</p>
+                <p className=" text-base">{trainer.subject}</p>
+                <p className="text-lg">10/{trainer.rating}</p>
+                <span
+                  className={`${getStatusColor(
+                    trainer.status,
+                  )} rounded-xl py-[4px] px-[9px]`}
+                >
+                  {trainer.status}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="py-[64px]">
+          <div className="w-full text-center text-[28px] font-medium">
+            Как это работает
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-12 mt-12">
+            <div className="flex flex-col items-center justify-center gap-3">
+              <p className="bg-[#185FA5] text-white rounded-full w-10 h-10 text-[20px] p-5 text-center flex items-center justify-center">
+                1
+              </p>
+
+              <p className="font-medium text-lg">Создайте профиль</p>
+              <span className="text-[#6B7280] text-center">
+                Заполните данные, укажите предмет, опыт работы и загрузите фото.
+                Это займёт 5 минут.
+              </span>
+            </div>
+
+            <div className="flex flex-col items-center justify-center gap-3">
+              <p className="bg-[#185FA5] text-white rounded-full w-10 h-10 text-[20px] p-5 text-center flex items-center justify-center">
+                2
+              </p>
+
+              <p className="font-medium text-lg">Найдите вакансию</p>
+              <span className="text-[#6B7280] text-center">
+                Используйте фильтры по городу, предмету, зарплате и формату
+                работы для поиска.
+              </span>
+            </div>
+
+            <div className="flex flex-col items-center justify-center gap-3">
+              <p className="bg-[#185FA5] text-white rounded-full w-10 h-10 text-[20px] p-5 text-center flex items-center justify-center">
+                3
+              </p>
+
+              <p className="font-medium text-lg">Откликнитесь</p>
+              <span className="text-[#6B7280] text-center">
+                Один клик — и школа увидит ваш профиль. Отслеживайте статус в
+                личном кабинете.
+              </span>
+            </div>
+          </div>
+
+          <div className="mt-20 w-full bg-[#EEF2FF] rounded-xl flex flex-col md:flex-row items-center justify-between p-8 md:p-[48px]">
+            <div className="flex flex-col items-start gap-8 w-1/2">
+              <span className="text-[#5B21B6] bg-[#DDD6FE] rounded-full px-[12px] py-[4px]">
+                Новое · AI-поиск
+              </span>
+
+              <p className="text-[28px] font-semibold leading-relaxed ">
+                Опишите кого ищете — AI <br /> найдёт за секунды.
+              </p>
+
+              <p className="text-[#6B7280]">
+                Не нужно настраивать фильтры. Просто напишите: "строгий учитель
+                математики в Алматы с опытом олимпиад" — и мы подберём лучших
+                кандидатов из базы.
+              </p>
+            </div>
+
+            <Image
+              src={aiSearch}
+              alt="AI-search"
+              width={500}
+              height={500}
+              className="w-1/2"
+            />
+          </div>
+        </div>
+      </Container>
     </>
   );
 }

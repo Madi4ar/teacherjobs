@@ -125,7 +125,7 @@ function Navbar() {
   }, [mobileOpen, closeMobile]);
 
   return (
-    <div className="sticky top-0 z-50 border-b border-[#E5E7EB] bg-white">
+    <div className="fixed w-full top-0 z-50 border-b border-[#E5E7EB] bg-white">
       <Container>
         <div
           ref={headerRowRef}
