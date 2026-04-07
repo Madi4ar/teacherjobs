@@ -9,7 +9,7 @@ function Footer() {
     <>
       <footer className="w-full bg-[#F9FAFB]">
         <Container>
-          <div className="grid md:grid-cols-4 items-start py-[42px]">
+          <div className="grid grid-cols-2 md:grid-cols-4 items-start py-[42px] gap-8">
             <div className="flex flex-col gap-4">
               <Link href="/">
                 <Image src={logo} alt="Logo" />

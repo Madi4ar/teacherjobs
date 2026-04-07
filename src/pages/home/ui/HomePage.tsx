@@ -277,8 +277,8 @@ function HomePage() {
             </div>
           </div>
 
-          <div className="mt-20 w-full bg-[#EEF2FF] rounded-xl flex flex-col md:flex-row items-center justify-between p-8 md:p-[48px]">
-            <div className="flex flex-col items-start gap-8 w-1/2">
+          <div className="mt-20 w-full bg-[#EEF2FF] rounded-xl flex flex-col md:flex-row items-center justify-between p-8 md:p-[48px] gap-4">
+            <div className="flex flex-col items-start gap-8 w-full md:w-1/2">
               <span className="text-[#5B21B6] bg-[#DDD6FE] rounded-full px-[12px] py-[4px]">
                 Новое · AI-поиск
               </span>
@@ -299,7 +299,7 @@ function HomePage() {
               alt="AI-search"
               width={500}
               height={500}
-              className="w-1/2"
+              className="w-full md:w-1/2"
             />
           </div>
         </div>
