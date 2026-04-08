@@ -102,7 +102,7 @@ function HomePage() {
 
   return (
     <>
-      <div className="flex flex-col mt-[72px] md:mt-0 md:h-screen bg-[#F9FAFB]">
+      <div className="flex flex-col mt-[72px] md:mt-0 md:h-[calc(100vh-72px)] bg-[#F9FAFB]">
         <Container className="h-full">
           <div className="flex flex-col items-center justify-center py-[72px] h-full">
             <span className="text-[#185FA5] bg-[#E6F1FB] rounded-lg px-[12px] py-[5px] font-medium text-sm">
