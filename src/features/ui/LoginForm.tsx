@@ -12,6 +12,26 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
+const getReadableAuthError = (error: unknown) => {
+  if (typeof error === "object" && error !== null) {
+    const authError = error as { code?: string; message?: string };
+
+    if (authError.code === "invalid_credentials") {
+      return "Неверный email или пароль";
+    }
+
+    if (authError.message === "Invalid login credentials") {
+      return "Неверный email или пароль";
+    }
+
+    if (typeof authError.message === "string" && authError.message.length > 0) {
+      return authError.message;
+    }
+  }
+
+  return "Не удалось выполнить вход";
+};
+
 export const LoginForm = () => {
   const { signIn } = useAuth();
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -29,9 +49,7 @@ export const LoginForm = () => {
       await signIn(data.email, data.password);
     } catch (error) {
       console.error(error);
-      setSubmitError(
-        error instanceof Error ? error.message : "Не удалось выполнить вход",
-      );
+      setSubmitError(getReadableAuthError(error));
     }
   };
 
