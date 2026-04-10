@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState } from "react";
-import { useAuth } from "../auth-by-email/model/use-auth";
+import { useAuth } from "../model/use-auth";
 
 const schema = z.object({
   email: z.string().email("Неверный email"),

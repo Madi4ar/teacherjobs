@@ -1,5 +1,5 @@
-import LoginView from "@/features/auth-by-email/ui/LoginPage";
+import { LoginForm } from "@/features/auth-by-email/ui/LoginForm";
 
 export default function LoginPage() {
-  return <LoginView />;
+  return <LoginForm />;
 }
