@@ -37,14 +37,15 @@ export async function proxy(request: NextRequest) {
   if (
     user &&
     (request.nextUrl.pathname === "/login" ||
-      request.nextUrl.pathname === "/register")
+      request.nextUrl.pathname === "/register" ||
+      request.nextUrl.pathname === "/auth")
   ) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return response;
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/employer/:path*", "/login", "/register"],
+  matcher: ["/dashboard/:path*", "/employer/:path*", "/login", "/register", "/auth"],
 };

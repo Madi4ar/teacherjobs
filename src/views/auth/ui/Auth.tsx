@@ -1,28 +1,28 @@
-"use client";
+'use client';
 
-import Container from "@/shared/container/ui/Container";
-import Image from "next/image";
-import Link from "next/link";
-import logo from "@/shared/icons/logo-ustaz-joly.svg";
-import { useState } from "react";
+import Container from '@/shared/container/ui/Container';
+import Image from 'next/image';
+import Link from 'next/link';
+import logo from '@/shared/icons/logo-ustaz-joly.svg';
+import { useState } from 'react';
+import { LoginForm } from '@/features/auth-by-email/ui/LoginForm';
+import { RegisterForm } from '@/features/auth-by-email/ui/RegisterForm';
 import {
-  ArrowLeft,
   BriefcaseBusiness,
   Building2,
-  Eye,
   GraduationCap,
   MapPin,
   School,
   Sparkles,
-} from "lucide-react";
+} from 'lucide-react';
 
 export default function AuthView() {
-  const [authMode, setAuthMode] = useState<"login" | "register">("login");
-  const [accountType, setAccountType] = useState<"teacher" | "school">(
-    "teacher",
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  const [accountType, setAccountType] = useState<'teacher' | 'school'>(
+    'teacher',
   );
-  const isTeacher = accountType === "teacher";
-  const isRegister = authMode === "register";
+  const isTeacher = accountType === 'teacher';
+  const isRegister = authMode === 'register';
 
   return (
     <>
@@ -94,11 +94,10 @@ export default function AuthView() {
                     <span className="text-[#6B7280]">4.9 · 24 отзыва</span>
                   </div>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    {["Алгебра", "ЕНТ", "Олимпиады"].map((tag) => (
+                    {['Алгебра', 'ЕНТ', 'Олимпиады'].map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-[#EFF6FF] px-2.5 py-1 text-xs text-[#2563EB]"
-                      >
+                        className="rounded-full bg-[#EFF6FF] px-2.5 py-1 text-xs text-[#2563EB]">
                         {tag}
                       </span>
                     ))}
@@ -115,14 +114,13 @@ export default function AuthView() {
 
             <div className="mt-4 grid max-w-[420px] grid-cols-3 gap-2.5">
               {[
-                { value: "200k+", label: "Учителей" },
-                { value: "1 200+", label: "Школ" },
-                { value: "3 400+", label: "Вакансий" },
+                { value: '200k+', label: 'Учителей' },
+                { value: '1 200+', label: 'Школ' },
+                { value: '3 400+', label: 'Вакансий' },
               ].map((item) => (
                 <div
                   key={item.label}
-                  className="rounded-xl border border-[#E5E7EB] bg-white py-3 text-center"
-                >
+                  className="rounded-xl border border-[#E5E7EB] bg-white py-3 text-center">
                   <p className="text-xl font-semibold text-[#1E63B6]">
                     {item.value}
                   </p>
@@ -138,24 +136,22 @@ export default function AuthView() {
             <div className="inline-flex rounded-md border border-[#E5E7EB] bg-white p-0.5">
               <button
                 type="button"
-                onClick={() => setAuthMode("login")}
+                onClick={() => setAuthMode('login')}
                 className={`rounded-[5px] px-3 py-1 text-xs ${
-                  authMode === "login"
-                    ? "bg-[#F3F4F6] font-medium text-[#111827]"
-                    : "text-[#6B7280]"
-                }`}
-              >
+                  authMode === 'login'
+                    ? 'bg-[#F3F4F6] font-medium text-[#111827]'
+                    : 'text-[#6B7280]'
+                }`}>
                 Войти
               </button>
               <button
                 type="button"
-                onClick={() => setAuthMode("register")}
+                onClick={() => setAuthMode('register')}
                 className={`rounded-[5px] px-3 py-1 text-xs ${
-                  authMode === "register"
-                    ? "bg-[#F3F4F6] font-medium text-[#111827]"
-                    : "text-[#6B7280]"
-                }`}
-              >
+                  authMode === 'register'
+                    ? 'bg-[#F3F4F6] font-medium text-[#111827]'
+                    : 'text-[#6B7280]'
+                }`}>
                 Регистрация
               </button>
             </div>
@@ -163,12 +159,12 @@ export default function AuthView() {
 
           <div className="mx-auto mt-8 w-full md:w-1/2 flex flex-col items-center justify-center">
             <h2 className="text-[34px] font-semibold text-[#111827]">
-              {isRegister ? "Создайте аккаунт" : "Добро пожаловать"}
+              {isRegister ? 'Создайте аккаунт' : 'Добро пожаловать'}
             </h2>
             <p className="mt-1 text-sm text-[#6B7280]">
               {isRegister
-                ? "Введите данные для регистрации"
-                : "Введите данные для входа в аккаунт"}
+                ? 'Введите данные для регистрации'
+                : 'Введите данные для входа в аккаунт'}
             </p>
 
             <div className="mt-6 w-full">
@@ -176,54 +172,48 @@ export default function AuthView() {
               <div className="mt-2 grid grid-cols-2 gap-2">
                 <button
                   type="button"
-                  onClick={() => setAccountType("teacher")}
+                  onClick={() => setAccountType('teacher')}
                   className={`rounded-xl border p-3 text-left ${
                     isTeacher
-                      ? "border-[#1E63B6] bg-[#EFF6FF]"
-                      : "border-[#E5E7EB] bg-white"
-                  }`}
-                >
+                      ? 'border-[#1E63B6] bg-[#EFF6FF]'
+                      : 'border-[#E5E7EB] bg-white'
+                  }`}>
                   <div
                     className={`mb-2 inline-flex rounded-full p-1.5 ${
                       isTeacher
-                        ? "bg-[#1E63B6] text-white"
-                        : "bg-[#F3F4F6] text-[#9CA3AF]"
-                    }`}
-                  >
+                        ? 'bg-[#1E63B6] text-white'
+                        : 'bg-[#F3F4F6] text-[#9CA3AF]'
+                    }`}>
                     <BriefcaseBusiness size={14} />
                   </div>
                   <p
                     className={`text-sm font-semibold ${
-                      isTeacher ? "text-[#1E63B6]" : "text-[#374151]"
-                    }`}
-                  >
+                      isTeacher ? 'text-[#1E63B6]' : 'text-[#374151]'
+                    }`}>
                     Я учитель
                   </p>
                   <p className="mt-0.5 text-xs text-[#6B7280]">Ищу работу</p>
                 </button>
                 <button
                   type="button"
-                  onClick={() => setAccountType("school")}
+                  onClick={() => setAccountType('school')}
                   className={`rounded-xl border p-3 text-left ${
                     !isTeacher
-                      ? "border-[#1E63B6] bg-[#EFF6FF]"
-                      : "border-[#E5E7EB] bg-white"
-                  }`}
-                >
+                      ? 'border-[#1E63B6] bg-[#EFF6FF]'
+                      : 'border-[#E5E7EB] bg-white'
+                  }`}>
                   <div
                     className={`mb-2 inline-flex rounded-full p-1.5 ${
                       !isTeacher
-                        ? "bg-[#1E63B6] text-white"
-                        : "bg-[#F3F4F6] text-[#9CA3AF]"
-                    }`}
-                  >
+                        ? 'bg-[#1E63B6] text-white'
+                        : 'bg-[#F3F4F6] text-[#9CA3AF]'
+                    }`}>
                     <Building2 size={14} />
                   </div>
                   <p
                     className={`text-sm font-semibold ${
-                      !isTeacher ? "text-[#1E63B6]" : "text-[#374151]"
-                    }`}
-                  >
+                      !isTeacher ? 'text-[#1E63B6]' : 'text-[#374151]'
+                    }`}>
                     Я школа
                   </p>
                   <p className="mt-0.5 text-xs text-[#6B7280]">
@@ -234,144 +224,16 @@ export default function AuthView() {
             </div>
 
             <div className="mt-4 space-y-4 w-full">
-              {isRegister ? (
-                <>
-                  {!isTeacher ? (
-                    <>
-                      <label className="block">
-                        <span className="mb-1 block text-xs text-[#6B7280]">
-                          Название школы
-                        </span>
-                        <input
-                          type="text"
-                          placeholder="РФМШ Алматы"
-                          className="w-full rounded-md border border-[#E5E7EB] px-3 py-2 text-sm outline-none placeholder:text-[#D1D5DB] focus:border-[#1E63B6]"
-                        />
-                      </label>
-
-                      <label className="block">
-                        <span className="mb-1 block text-xs text-[#6B7280]">
-                          Город
-                        </span>
-                        <input
-                          type="text"
-                          placeholder="Алматы"
-                          className="w-full rounded-md border border-[#E5E7EB] px-3 py-2 text-sm outline-none placeholder:text-[#D1D5DB] focus:border-[#1E63B6]"
-                        />
-                      </label>
-                    </>
-                  ) : null}
-
-                  <label className="block">
-                    <span className="mb-1 block text-xs text-[#6B7280]">
-                      ФИО
-                    </span>
-                    <input
-                      type="text"
-                      placeholder="Айгуль Сагимбаева"
-                      className="w-full rounded-md border border-[#E5E7EB] px-3 py-2 text-sm outline-none placeholder:text-[#D1D5DB] focus:border-[#1E63B6]"
-                    />
-                  </label>
-
-                  <label className="block">
-                    <span className="mb-1 block text-xs text-[#6B7280]">
-                      Email
-                    </span>
-                    <input
-                      type="email"
-                      placeholder={
-                        isTeacher ? "teacher@mail.kz" : "school@mail.kz"
-                      }
-                      className="w-full rounded-md border border-[#E5E7EB] px-3 py-2 text-sm outline-none placeholder:text-[#D1D5DB] focus:border-[#1E63B6]"
-                    />
-                  </label>
-
-                  <label className="block">
-                    <span className="mb-1 block text-xs text-[#6B7280]">
-                      Пароль
-                    </span>
-                    <div className="flex items-center rounded-md border border-[#E5E7EB] px-3 py-2">
-                      <input
-                        type="password"
-                        placeholder="Минимум 8 символов"
-                        className="w-full text-sm outline-none"
-                      />
-                      <Eye size={16} className="text-[#9CA3AF]" />
-                    </div>
-                  </label>
-
-                  <label className="block">
-                    <span className="mb-1 block text-xs text-[#6B7280]">
-                      Подтвердить пароль
-                    </span>
-                    <div className="flex items-center rounded-md border border-[#E5E7EB] px-3 py-2">
-                      <input
-                        type="password"
-                        placeholder="Повторите пароль"
-                        className="w-full text-sm outline-none"
-                      />
-                      <Eye size={16} className="text-[#9CA3AF]" />
-                    </div>
-                  </label>
-                </>
-              ) : (
-                <>
-                  <label className="block">
-                    <span className="mb-1 block text-xs text-[#6B7280]">
-                      {isTeacher ? "Email" : "Рабочий Email"}
-                    </span>
-                    <input
-                      type="email"
-                      placeholder={
-                        isTeacher ? "teacher@mail.kz" : "school@mail.kz"
-                      }
-                      className="w-full rounded-md border border-[#E5E7EB] px-3 py-2 text-sm outline-none placeholder:text-[#D1D5DB] focus:border-[#1E63B6]"
-                    />
-                  </label>
-
-                  <label className="block">
-                    <span className="mb-1 block text-xs text-[#6B7280]">
-                      Пароль
-                    </span>
-                    <div className="flex items-center rounded-md border border-[#E5E7EB] px-3 py-2">
-                      <input
-                        type="password"
-                        defaultValue="12345678"
-                        className="w-full text-sm outline-none"
-                      />
-                      <Eye size={16} className="text-[#9CA3AF]" />
-                    </div>
-                    <div className="mt-2 flex justify-end">
-                      <button type="button" className="text-xs text-[#1E63B6]">
-                        Забыли пароль?
-                      </button>
-                    </div>
-                  </label>
-                </>
-              )}
+              {isRegister ? <RegisterForm /> : <LoginForm />}
             </div>
 
-            <button
-              type="button"
-              className="mt-8 w-full rounded-md bg-[#1E63B6] py-2.5 text-sm font-medium text-white"
-            >
-              {isRegister
-                ? isTeacher
-                  ? "Зарегистрироваться как учитель"
-                  : "Зарегистрироваться как школа"
-                : isTeacher
-                  ? "Войти как учитель"
-                  : "Войти как школа"}
-            </button>
-
             <p className="mt-4 text-center text-sm text-[#6B7280]">
-              {isRegister ? "Уже есть аккаунт?" : "Нет аккаунта?"}
+              {isRegister ? 'Уже есть аккаунт?' : 'Нет аккаунта?'}
               <button
                 type="button"
                 className="ml-1 font-medium text-[#1E63B6]"
-                onClick={() => setAuthMode(isRegister ? "login" : "register")}
-              >
-                {isRegister ? "Войти" : "Зарегистрироваться"}
+                onClick={() => setAuthMode(isRegister ? 'login' : 'register')}>
+                {isRegister ? 'Войти' : 'Зарегистрироваться'}
               </button>
             </p>
           </div>

@@ -1,5 +1,5 @@
-import { createSupabaseClient } from "@/shared/api/supabase.client";
-import { useRouter } from "next/navigation";
+import { createSupabaseClient } from '@/shared/api/supabase.client';
+import { useRouter } from 'next/navigation';
 
 export const useAuth = () => {
   const router = useRouter();
@@ -10,10 +10,24 @@ export const useAuth = () => {
       !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
     ) {
       throw new Error(
-        "Supabase env variables are missing: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY"
+        'Supabase env variables are missing: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY',
       );
     }
     return createSupabaseClient();
+  };
+
+  const waitForSignedIn = async (supabase: ReturnType<typeof getSupabase>) => {
+    await new Promise<void>((resolve) => {
+      const {
+        data: { subscription },
+      } = supabase.auth.onAuthStateChange((event) => {
+        if (event === 'SIGNED_IN') {
+          subscription.unsubscribe();
+          resolve();
+        }
+      });
+      setTimeout(resolve, 1000);
+    });
   };
 
   const signIn = async (email: string, password: string) => {
@@ -23,7 +37,8 @@ export const useAuth = () => {
       password,
     });
     if (error) throw error;
-    router.push("/dashboard");
+    await waitForSignedIn(supabase);
+    router.push('/');
     router.refresh();
   };
 
@@ -34,14 +49,15 @@ export const useAuth = () => {
       password,
     });
     if (error) throw error;
-    router.push("/dashboard");
+    await waitForSignedIn(supabase);
+    router.push('/');
     router.refresh();
   };
 
   const signOut = async () => {
     const supabase = getSupabase();
     await supabase.auth.signOut();
-    router.push("/");
+    router.push('/auth');
     router.refresh();
   };
 
