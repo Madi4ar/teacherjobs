@@ -9,7 +9,7 @@ function HomePage() {
   interface Vacancies {
     subject: string;
     school: string;
-    salary: number;
+    salary: number; 
     published: string;
   }
 

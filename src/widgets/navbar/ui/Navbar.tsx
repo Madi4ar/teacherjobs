@@ -1,18 +1,18 @@
-'use client';
-import Container from '@/shared/container/ui/Container';
-import { useUserEmail } from '@/shared/providers/AuthProvider';
-import { useAuth } from '@/features/auth-by-email/model/use-auth';
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
-import Image from 'next/image';
-import logo from '@/shared/icons/logo-ustaz-joly.svg';
+"use client";
+import Container from "@/shared/container/ui/Container";
+import { useUserEmail } from "@/shared/providers/AuthProvider";
+import { useAuth } from "@/features/auth-by-email/model/use-auth";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import logo from "@/shared/icons/logo-ustaz-joly.svg";
 import {
   useEffect,
   useLayoutEffect,
   useRef,
   useState,
   type ReactNode,
-} from 'react';
+} from "react";
 
 type NavItem = {
   href: string;
@@ -32,7 +32,8 @@ function AiSearchIcon({ className }: { className?: string }) {
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
-      aria-hidden>
+      aria-hidden
+    >
       <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
       <path d="M20 3v4" />
       <path d="M22 5h-4" />
@@ -53,7 +54,8 @@ function MenuIcon({ className }: { className?: string }) {
       stroke="currentColor"
       strokeWidth={2}
       strokeLinecap="round"
-      aria-hidden>
+      aria-hidden
+    >
       <path d="M4 6h16M4 12h16M4 18h16" />
     </svg>
   );
@@ -70,21 +72,22 @@ function CloseIcon({ className }: { className?: string }) {
       stroke="currentColor"
       strokeWidth={2}
       strokeLinecap="round"
-      aria-hidden>
+      aria-hidden
+    >
       <path d="M18 6 6 18M6 6l12 12" />
     </svg>
   );
 }
 
 const items: NavItem[] = [
-  { href: '/vacancy', label: 'Вакансии' },
-  { href: '/teacher', label: 'Учителя' },
+  { href: "/vacancy", label: "Вакансии" },
+  { href: "/teacher", label: "Учителя" },
   {
-    href: '/ai-search',
-    label: 'AI поиск',
+    href: "/ai-search",
+    label: "AI поиск",
     icon: <AiSearchIcon className="shrink-0" />,
   },
-  { href: '/school', label: 'Школам' },
+  { href: "/school", label: "Школам" },
 ];
 
 function Navbar() {
@@ -95,8 +98,15 @@ function Navbar() {
   const profileMenuRef = useRef<HTMLDivElement>(null);
   const [headerHeight, setHeaderHeight] = useState(0);
   const { signOut } = useAuth();
-  const { userEmail } = useUserEmail();
+  const { userEmail, userRole, authResolved } = useUserEmail();
   const pathname = usePathname();
+
+  const roleCabinetLink =
+    userRole === "teacher"
+      ? { href: "/dashboard", label: "Мой кабинет" }
+      : userRole === "school"
+        ? { href: "/employer", label: "Кабинет школы" }
+        : null;
 
   const closeMobile = () => setMobileOpen(false);
 
@@ -113,7 +123,7 @@ function Navbar() {
   useEffect(() => {
     if (!mobileOpen) return;
     const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = prev;
     };
@@ -122,11 +132,11 @@ function Navbar() {
   useEffect(() => {
     if (!mobileOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeMobile();
+      if (e.key === "Escape") closeMobile();
     };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [mobileOpen, closeMobile]);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [mobileOpen]);
 
   useEffect(() => {
     setIsMounted(true);
@@ -134,7 +144,6 @@ function Navbar() {
 
   useEffect(() => {
     if (!profileMenuOpen) return;
-
     const onClickOutside = (event: MouseEvent) => {
       if (
         profileMenuRef.current &&
@@ -143,19 +152,14 @@ function Navbar() {
         setProfileMenuOpen(false);
       }
     };
-
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setProfileMenuOpen(false);
-      }
+      if (event.key === "Escape") setProfileMenuOpen(false);
     };
-
-    window.addEventListener('mousedown', onClickOutside);
-    window.addEventListener('keydown', onKeyDown);
-
+    window.addEventListener("mousedown", onClickOutside);
+    window.addEventListener("keydown", onKeyDown);
     return () => {
-      window.removeEventListener('mousedown', onClickOutside);
-      window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener("mousedown", onClickOutside);
+      window.removeEventListener("keydown", onKeyDown);
     };
   }, [profileMenuOpen]);
 
@@ -164,7 +168,8 @@ function Navbar() {
       <Container>
         <div
           ref={headerRowRef}
-          className="relative z-50 flex items-center justify-between py-[16px]">
+          className="relative z-50 flex items-center justify-between py-[16px]"
+        >
           <Link href="/" onClick={closeMobile}>
             <Image src={logo} alt="Logo" />
           </Link>
@@ -174,9 +179,10 @@ function Navbar() {
               <li key={item.href}>
                 <Link
                   className={`inline-flex items-center gap-1.5 text-[#6B7280] ${
-                    pathname === item.href ? 'text-[#7C3AED]' : ''
+                    pathname === item.href ? "text-[#7C3AED]" : ""
                   }`}
-                  href={item.href}>
+                  href={item.href}
+                >
                   {item.icon}
                   {item.label}
                 </Link>
@@ -192,15 +198,26 @@ function Navbar() {
                 <button
                   type="button"
                   className="rounded-lg border border-gray-300 px-[12px] py-[5px] text-sm text-[#374151]"
-                  onClick={() => setProfileMenuOpen((prev) => !prev)}>
+                  onClick={() => setProfileMenuOpen((prev) => !prev)}
+                >
                   {userEmail}
                 </button>
-                {profileMenuOpen ? (
+                {profileMenuOpen && (
                   <div className="absolute right-0 mt-2 w-48 rounded-xl border border-[#E5E7EB] bg-white p-1 shadow-lg">
+                    {roleCabinetLink && (
+                      <Link
+                        href={roleCabinetLink.href}
+                        className="block rounded-lg px-3 py-2 text-sm text-[#374151] hover:bg-[#F3F4F6]"
+                        onClick={() => setProfileMenuOpen(false)}
+                      >
+                        {roleCabinetLink.label}
+                      </Link>
+                    )}
                     <Link
                       href="/profile"
                       className="block rounded-lg px-3 py-2 text-sm text-[#374151] hover:bg-[#F3F4F6]"
-                      onClick={() => setProfileMenuOpen(false)}>
+                      onClick={() => setProfileMenuOpen(false)}
+                    >
                       Профиль
                     </Link>
                     <button
@@ -208,25 +225,44 @@ function Navbar() {
                       className="block w-full rounded-lg px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50"
                       onClick={async () => {
                         setProfileMenuOpen(false);
-                        await signOut();
-                      }}>
+                        try {
+                          await signOut();
+                        } catch (error) {
+                          console.error("Sign out failed:", error);
+                        }
+                      }}
+                    >
                       Выйти
                     </button>
                   </div>
-                ) : null}
+                )}
               </div>
             ) : (
               <Link
                 href="/auth"
-                className="rounded-lg border border-gray-300 px-[17px] py-[5px]">
+                className="rounded-lg border border-gray-300 px-[17px] py-[5px]"
+              >
                 Войти
               </Link>
             )}
-            <Link
-              href="/register"
-              className="rounded-lg bg-[#185FA5] px-[17px] py-[5px] text-white">
-              Разместить вакансию
-            </Link>
+
+            {userEmail && !authResolved ? (
+              <div className="h-[34px] w-[180px] animate-pulse rounded-lg bg-gray-200" />
+            ) : roleCabinetLink ? (
+              <Link
+                href={roleCabinetLink.href}
+                className="rounded-lg bg-[#185FA5] px-[17px] py-[5px] text-white"
+              >
+                {roleCabinetLink.label}
+              </Link>
+            ) : (
+              <Link
+                href="/register"
+                className="rounded-lg bg-[#185FA5] px-[17px] py-[5px] text-white"
+              >
+                Разместить вакансию
+              </Link>
+            )}
           </div>
 
           <button
@@ -234,14 +270,15 @@ function Navbar() {
             className="inline-flex items-center justify-center rounded-lg p-2 text-[#374151] md:hidden"
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
-            aria-label={mobileOpen ? 'Закрыть меню' : 'Открыть меню'}
-            onClick={() => setMobileOpen((o) => !o)}>
+            aria-label={mobileOpen ? "Закрыть меню" : "Открыть меню"}
+            onClick={() => setMobileOpen((o) => !o)}
+          >
             {mobileOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
         </div>
       </Container>
 
-      {mobileOpen ? (
+      {mobileOpen && (
         <>
           <button
             type="button"
@@ -252,19 +289,22 @@ function Navbar() {
           <div
             id="mobile-menu"
             className="fixed inset-x-0 bottom-0 z-50 flex min-h-0 flex-col overflow-y-auto border-t border-[#E5E7EB] bg-white shadow-md md:hidden"
-            style={{ top: headerHeight }}>
+            style={{ top: headerHeight }}
+          >
             <Container className="flex min-h-0 flex-1 flex-col">
               <nav
                 className="flex min-h-full flex-1 flex-col gap-1 py-4"
-                aria-label="Мобильная навигация">
+                aria-label="Мобильная навигация"
+              >
                 {items.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
                     className={`inline-flex items-center gap-2 rounded-lg px-2 py-3 text-base text-[#6B7280] ${
-                      pathname === item.href ? 'text-[#7C3AED]' : ''
+                      pathname === item.href ? "text-[#7C3AED]" : ""
                     }`}
-                    onClick={closeMobile}>
+                    onClick={closeMobile}
+                  >
                     {item.icon}
                     {item.label}
                   </Link>
@@ -278,22 +318,36 @@ function Navbar() {
                     <Link
                       href="/auth"
                       className="rounded-lg border border-gray-300 px-[17px] py-[10px] text-center"
-                      onClick={closeMobile}>
+                      onClick={closeMobile}
+                    >
                       Войти
                     </Link>
                   )}
-                  <Link
-                    href="/register"
-                    className="rounded-lg bg-[#185FA5] px-[17px] py-[10px] text-center text-white"
-                    onClick={closeMobile}>
-                    Разместить вакансию
-                  </Link>
+                  {userEmail && !authResolved ? (
+                    <div className="h-[42px] w-full animate-pulse rounded-lg bg-gray-200" />
+                  ) : roleCabinetLink ? (
+                    <Link
+                      href={roleCabinetLink.href}
+                      className="rounded-lg bg-[#185FA5] px-[17px] py-[10px] text-center text-white"
+                      onClick={closeMobile}
+                    >
+                      {roleCabinetLink.label}
+                    </Link>
+                  ) : (
+                    <Link
+                      href="/register"
+                      className="rounded-lg bg-[#185FA5] px-[17px] py-[10px] text-center text-white"
+                      onClick={closeMobile}
+                    >
+                      Разместить вакансию
+                    </Link>
+                  )}
                 </div>
               </nav>
             </Container>
           </div>
         </>
-      ) : null}
+      )}
     </div>
   );
 }

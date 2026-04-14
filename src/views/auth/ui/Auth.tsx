@@ -224,7 +224,7 @@ export default function AuthView() {
             </div>
 
             <div className="mt-4 space-y-4 w-full">
-              {isRegister ? <RegisterForm /> : <LoginForm />}
+              {isRegister ? <RegisterForm role={accountType} /> : <LoginForm />}
             </div>
 
             <p className="mt-4 text-center text-sm text-[#6B7280]">

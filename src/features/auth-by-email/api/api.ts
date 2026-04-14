@@ -1,9 +1,24 @@
 type SignInFn = (email: string, password: string) => Promise<void>;
-type SignUpFn = (email: string, password: string) => Promise<void>;
+type SignUpFn = (
+  email: string,
+  password: string,
+  role: "teacher" | "school",
+) => Promise<void>;
 
 const getReadableAuthError = (error: unknown) => {
+  if (!navigator.onLine) {
+    return "Нет подключения к интернету. Проверьте сеть и попробуйте снова.";
+  }
+
   if (typeof error === "object" && error !== null) {
-    const authError = error as { code?: string; message?: string };
+    const authError = error as { code?: string; message?: string; name?: string };
+
+    if (
+      authError.name === "AuthRetryableFetchError" ||
+      authError.message === "Failed to fetch"
+    ) {
+      return "Не удалось подключиться к серверу авторизации. Попробуйте еще раз.";
+    }
 
     if (authError.code === "invalid_credentials") {
       return "Неверный email или пароль";
@@ -39,9 +54,10 @@ export const registerByEmailRequest = async (
   signUp: SignUpFn,
   email: string,
   password: string,
+  role: "teacher" | "school",
 ) => {
   try {
-    await signUp(email, password);
+    await signUp(email, password, role);
     return null;
   } catch (error) {
     console.error(error);

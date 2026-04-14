@@ -21,7 +21,11 @@ const schema = z
 
 type FormData = z.infer<typeof schema>;
 
-export const RegisterForm = () => {
+type RegisterFormProps = {
+  role: "teacher" | "school";
+};
+
+export const RegisterForm = ({ role }: RegisterFormProps) => {
   const { signUp } = useAuth();
   const [submitError, setSubmitError] = useState<string | null>(null);
   const {
@@ -38,6 +42,7 @@ export const RegisterForm = () => {
       signUp,
       data.email,
       data.password,
+      role,
     );
     setSubmitError(errorMessage);
   };
