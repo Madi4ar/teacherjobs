@@ -5,6 +5,7 @@ import { useState } from "react";
 import type { Key } from "@heroui/react";
 import { Accordion, Slider, Button } from "@heroui/react";
 import { ListFilter, Minus, Plus, Search } from "lucide-react";
+import Link from "next/link";
 
 const REFERENCE_DATE = new Date("2026-04-10T12:00:00.000Z");
 
@@ -67,7 +68,7 @@ const mockVacancies = Array.from({ length: 12 }, (_, index) => ({
     .int({ min: 220000, max: 800000 })
     .toLocaleString("ru-RU")} ₸`,
   dateLabel: getDateLabel(
-    faker.date.recent({ days: 3, refDate: REFERENCE_DATE })
+    faker.date.recent({ days: 3, refDate: REFERENCE_DATE }),
   ),
   tags: faker.helpers.arrayElements(tagPool, { min: 2, max: 3 }),
 }));
@@ -111,7 +112,7 @@ const types = [
 
 export default function VacancyPage() {
   const [expandedKeys, setExpandedKeys] = useState<Set<Key>>(
-    new Set(["1", "2", "3", "4"])
+    new Set(["1", "2", "3", "4"]),
   );
 
   return (
@@ -125,8 +126,8 @@ export default function VacancyPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-[20%_1fr] gap-6 mt-8 py-6">
-        <div className="filter border border-gray-200 rounded-xl px-4 py-[14px]">
+      <div className="grid grid-cols-1 md:grid-cols-[20%_1fr] gap-6 mt-8 py-6 items-start">
+        <div className="filter border border-gray-200 rounded-xl px-4 py-[14px] sticky top-20">
           <div className="flex items-center relative">
             <input
               className="py-2 bg-[#F9FAFB] px-[42px] border border-gray-200 rounded-lg outline-none w-full"
@@ -270,51 +271,56 @@ export default function VacancyPage() {
           </Button>
         </div>
 
-        <div className="grid gap-3 content-start">
+        <div className="grid grid-cols-1 md:grid-cols-1 gap-3 content-start">
           <p className="text-sm text-[#6B7280]">
             Найдено {mockVacancies.length} вакансий
           </p>
           {mockVacancies.map((vacancy) => (
-            <article
+            <Link
               key={vacancy.id}
-              className="flex items-start justify-between gap-4 rounded-2xl border border-[#E5E7EB] p-4"
+              href={`/vacancy-profile?title=${encodeURIComponent(vacancy.title)}&school=${encodeURIComponent(vacancy.school)}`}
+              className="group block"
             >
-              <div className="flex min-w-0 items-start gap-3">
-                <div className="min-w-0">
-                  <h2 className="truncate text-[20px] font-semibold leading-6 text-[#111827]">
-                    {vacancy.title}
-                  </h2>
-                  <p className="mt-1 text-sm text-[#6B7280]">
-                    {vacancy.school} · {vacancy.city}
-                  </p>
+              <article className="hover:border hover:border-blue-500 cursor-pointer transition-all duration-300 flex items-start justify-between gap-4 rounded-2xl border border-[#E5E7EB] p-4">
+                <div className="flex min-w-0 items-start gap-3">
+                  <div className="min-w-0">
+                    <h2 className="truncate text-[20px] font-semibold leading-6 text-[#111827]">
+                      {vacancy.title}
+                    </h2>
+                    <p className="mt-1 text-sm text-[#6B7280]">
+                      {vacancy.school} · {vacancy.city}
+                    </p>
 
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {vacancy.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className={`rounded-full ${
-                          tag === "Полная"
-                            ? "bg-[#EAF3DE]"
-                            : tag === "Срочно"
-                            ? "bg-[#FAEEDA]"
-                            : "bg-[#E6F1FB]"
-                        } px-2.5 py-1 text-xs text-[#6B7280]`}
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {vacancy.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className={`rounded-full ${
+                            tag === "Полная"
+                              ? "bg-[#EAF3DE]"
+                              : tag === "Срочно"
+                                ? "bg-[#FAEEDA]"
+                                : "bg-[#E6F1FB]"
+                          } px-2.5 py-1 text-xs text-[#6B7280]`}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="flex shrink-0 flex-col items-end gap-2">
-                <p className="text-2xl font-semibold text-[#111827]">
-                  {vacancy.salary}
-                </p>
-                <p className="text-sm text-[#9CA3AF]">{vacancy.dateLabel}</p>
-                <Button>Откликнуться</Button>
-              </div>
-            </article>
+                <div className="flex shrink-0 flex-col items-end gap-2">
+                  <p className="text-2xl font-semibold text-[#111827]">
+                    {vacancy.salary}
+                  </p>
+                  <p className="text-sm text-[#9CA3AF]">{vacancy.dateLabel}</p>
+                  <span className="inline-flex items-center justify-center rounded-xl bg-[#006FEE] px-4 py-2 text-sm font-medium text-white">
+                    Откликнуться
+                  </span>
+                </div>
+              </article>
+            </Link>
           ))}
         </div>
       </div>
